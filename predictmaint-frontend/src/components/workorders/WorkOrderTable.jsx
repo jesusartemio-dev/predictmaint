@@ -19,6 +19,7 @@ const orderTypeConfig = {
   PREDICTIVO: 'text-purple-300',
 }
 
+// prop opcional: en false oculta la columna de acciones (vista solo lectura)
 export default function WorkOrderTable({ workOrders, onUpdateStatus, showActions = true }) {
   return (
     <div className="overflow-x-auto">
@@ -85,6 +86,7 @@ export default function WorkOrderTable({ workOrders, onUpdateStatus, showActions
                       <select
                         className="bg-gray-700 text-white text-xs rounded px-2 py-1 border border-gray-600"
                         defaultValue=""
+                        // resetea el select a 'Cambiar...' despues de ejecutar la accion
                         onChange={(e) => {
                           if (e.target.value) {
                             onUpdateStatus && onUpdateStatus(workOrder.id, e.target.value)

@@ -11,6 +11,7 @@ export const getReadingsByEquipment = async (equipmentId) => {
   }
 }
 
+// /last limita a 10 registros para no sobrecargar la tabla del modal
 export const getLastReadings = async (equipmentId) => {
   try {
     const response = await axios.get(API + '/readings/equipment/' + equipmentId + '/last')

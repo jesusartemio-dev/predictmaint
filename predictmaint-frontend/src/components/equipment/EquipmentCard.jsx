@@ -4,6 +4,7 @@ import {
   MapPin, Clock
 } from 'lucide-react'
 
+// Objeto de configuracion visual por estado: evita if/else encadenados
 const statusConfig = {
   OPERATIVO: {
     color: 'green',
@@ -51,6 +52,7 @@ export default function EquipmentCard({ equipment, onClick }) {
   return (
     <div
       className={`rounded-lg border p-3 cursor-pointer transition-all duration-200 hover:scale-[1.02] hover:border-gray-500 hover:shadow-lg ${config.bg} ${config.border}`}
+      // && evita error si el padre no pasa la prop onClick
       onClick={() => onClick && onClick(equipment)}
     >
       <div className="flex items-center justify-between">

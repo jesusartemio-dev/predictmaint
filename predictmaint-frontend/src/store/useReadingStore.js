@@ -14,6 +14,7 @@ export const useReadingStore = create((set) => ({
     try {
       const token = useAuthStore.getState().token
       const config = { headers: { Authorization: `Bearer ${token}` } }
+      // /last trae solo las ultimas 10 lecturas, suficiente para evaluar condicion actual
       const response = await axios.get(API + '/readings/equipment/' + equipmentId + '/last', config)
       set({ readings: response.data, isLoading: false })
     } catch (err) {
@@ -25,8 +26,10 @@ export const useReadingStore = create((set) => ({
     const token = useAuthStore.getState().token
     const config = { headers: { Authorization: `Bearer ${token}` } }
     const response = await axios.post(API + '/readings/equipment/' + equipmentId, readingData, config)
+    // No refresca aqui: el modal llama fetchReadingsByEquipment despues de crear
     return response.data
   },
 
+  // Limpia al cerrar modal para no mostrar lecturas del equipo anterior al abrir otro
   clearReadings: () => set({ readings: [], error: null }),
 }))

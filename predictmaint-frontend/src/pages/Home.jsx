@@ -25,6 +25,7 @@ export default function Home() {
         </p>
 
         <div className="mt-8 flex gap-4 justify-center">
+          {/* redirige al dashboard si ya esta logueado, al login si no */}
           <button
             onClick={() => isAuthenticated ? navigate('/dashboard') : navigate('/login')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold flex items-center gap-2 transition-colors"

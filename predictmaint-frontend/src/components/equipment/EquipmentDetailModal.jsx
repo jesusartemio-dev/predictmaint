@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { X, Activity, Thermometer, Zap, Gauge, RefreshCw } from 'lucide-react'
 import Swal from 'sweetalert2'
 
+// Umbrales segun norma ISO 10816: >5 critico, >3 alerta, normal verde
 const getVibrationColor = (v) => {
   if (v > 5) return 'text-red-400'
   if (v > 3) return 'text-yellow-400'
@@ -27,6 +28,7 @@ export default function EquipmentDetailModal({ equipment, onClose }) {
   const [observations, setObservations] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  // clearReadings en el cleanup limpia el store al cerrar el modal
   useEffect(() => {
     fetchReadingsByEquipment(equipment.id)
     return () => clearReadings()
@@ -72,6 +74,7 @@ export default function EquipmentDetailModal({ equipment, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+      {/* evita que el click dentro del modal cierre el fondo oscuro */}
       <div className="bg-gray-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700" onClick={e => e.stopPropagation()}>
         <div className="flex justify-between items-center p-4 border-b border-gray-700">
           <div>
@@ -136,6 +139,7 @@ export default function EquipmentDetailModal({ equipment, onClose }) {
           )}
         </div>
 
+        {/* el formulario de nueva lectura solo aparece si hay sesion activa */}
         {(user?.role === 'ADMIN' || user?.role === 'TECNICO') && (
           <div className="p-4 border-t border-gray-700">
             <div className="flex items-center gap-2 mb-3">

@@ -29,6 +29,8 @@ export const createWorkOrder = async (equipmentId, data) => {
   }
 }
 
+// PATCH y no PUT porque solo se actualiza un campo, no el objeto completo
+// null como body porque el status va como query param (?status=COMPLETADA)
 export const updateWorkOrderStatus = async (id, status) => {
   try {
     const response = await axios.patch(API + '/workorders/' + id + '/status', null, { params: { status } })

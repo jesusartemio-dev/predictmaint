@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 export default function WorkOrderForm({ onClose }) {
   const { createWorkOrder } = useWorkOrderStore()
+  // reutiliza la lista ya cargada en el store, no hace un GET extra
   const { equipment } = useEquipmentStore()
 
   const [equipmentId, setEquipmentId] = useState('')

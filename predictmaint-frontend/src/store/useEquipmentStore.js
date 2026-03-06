@@ -13,6 +13,7 @@ export const useEquipmentStore = create((set) => ({
   fetchEquipment: async () => {
     set({ isLoading: true })
     try {
+      // getState() accede al token del authStore sin depender de props de React
       const token = useAuthStore.getState().token
       const config = { headers: { Authorization: `Bearer ${token}` } }
       const response = await axios.get(API + '/equipment', config)

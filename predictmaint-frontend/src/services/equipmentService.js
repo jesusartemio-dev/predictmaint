@@ -2,6 +2,9 @@ import axios from 'axios'
 
 const API = `${import.meta.env.VITE_API_URL || 'https://predictmaint-production.up.railway.app'}/api`
 
+// Funciones de acceso directo a la API. Actualmente no se usan
+// porque los stores de Zustand manejan las peticiones directamente.
+
 export const getEquipment = async () => {
   try {
     const response = await axios.get(API + '/equipment')

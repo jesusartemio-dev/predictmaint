@@ -37,6 +37,7 @@ export const useWorkOrderStore = create((set, get) => ({
       const token = useAuthStore.getState().token
       const config = { headers: { Authorization: `Bearer ${token}` } }
       const response = await axios.post(API + '/workorders/equipment/' + equipmentId, workOrderData, config)
+      // Refresca la tabla del AdminPanel automaticamente despues de crear
       await get().fetchWorkOrders()
       return response.data
     } catch (err) {
@@ -48,6 +49,7 @@ export const useWorkOrderStore = create((set, get) => ({
     try {
       const token = useAuthStore.getState().token
       const config = { headers: { Authorization: `Bearer ${token}` } }
+      // PATCH porque solo cambia el status, no el recurso completo. Body null, status va como query param
       const response = await axios.patch(API + '/workorders/' + id + '/status', null, { ...config, params: { status } })
       await get().fetchWorkOrders()
       return response.data

@@ -26,6 +26,7 @@ export default function Navbar() {
               Dashboard
             </Link>
 
+            {/* el link a Admin solo se muestra si el usuario tiene rol ADMIN */}
             {hasRole('ADMIN') && (
               <Link to="/panel-admin" className="text-gray-300 hover:text-white flex items-center gap-1 text-sm transition-colors">
                 <ShieldCheck size={15} />

@@ -2,13 +2,15 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import axios from 'axios'
 
+// Fallback a Railway para desarrollo local sin .env
 const API = `${import.meta.env.VITE_API_URL || 'https://predictmaint-production.up.railway.app'}/api`
 
 export const useAuthStore = create(
+  // persist: mantiene la sesion en localStorage para que sobreviva recargas de pagina
   persist(
     (set, get) => ({
       user: null,
-      token: null,
+      token: null, // JWT que se envia como header Authorization en cada peticion al backend
       isAuthenticated: false,
       isLoading: false,
       error: null,
@@ -45,6 +47,7 @@ export const useAuthStore = create(
 
       hasRole: (role) => {
         const { user } = get()
+        // ?. evita TypeError cuando user es null (no autenticado)
         return user?.role === role
       },
     }),

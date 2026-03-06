@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import axios from 'axios'
 import { useAuthStore } from '@/store/useAuthStore'
 
-const API = 'http://localhost:8080/api'
+const API = `${import.meta.env.VITE_API_URL || 'https://predictmaint-production.up.railway.app'}/api`
 
 export const useEquipmentStore = create((set) => ({
   equipment: [],

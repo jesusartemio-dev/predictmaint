@@ -1,0 +1,6 @@
+predictmaint-frontend/node_modules
+predictmaint-frontend/dist
+predictmaint-backend/target
+.env
+.env.local
+.DS_Store

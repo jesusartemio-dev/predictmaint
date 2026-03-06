@@ -1,0 +1,39 @@
+import { create } from 'zustand'
+import axios from 'axios'
+import { useAuthStore } from '@/store/useAuthStore'
+
+const API = 'http://localhost:8080/api'
+
+export const useEquipmentStore = create((set) => ({
+  equipment: [],
+  selectedEquipment: null,
+  isLoading: false,
+  error: null,
+
+  fetchEquipment: async () => {
+    set({ isLoading: true })
+    try {
+      const token = useAuthStore.getState().token
+      const config = { headers: { Authorization: `Bearer ${token}` } }
+      const response = await axios.get(API + '/equipment', config)
+      set({ equipment: response.data, isLoading: false })
+    } catch (err) {
+      set({ error: err.message, isLoading: false })
+    }
+  },
+
+  fetchEquipmentByStatus: async (status) => {
+    try {
+      const token = useAuthStore.getState().token
+      const config = { headers: { Authorization: `Bearer ${token}` } }
+      const response = await axios.get(API + '/equipment/status/' + status, config)
+      set({ equipment: response.data })
+    } catch (err) {
+      set({ error: err.message })
+    }
+  },
+
+  setSelectedEquipment: (equip) => set({ selectedEquipment: equip }),
+
+  clearError: () => set({ error: null }),
+}))

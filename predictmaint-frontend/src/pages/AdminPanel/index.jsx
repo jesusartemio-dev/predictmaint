@@ -1,13 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useWorkOrderStore } from '@/store/useWorkOrderStore'
 import { useEquipmentStore } from '@/store/useEquipmentStore'
 import WorkOrderTable from '@/components/workorders/WorkOrderTable'
-import { ClipboardList, Clock, Wrench, CheckCircle, RefreshCw } from 'lucide-react'
+import WorkOrderForm from '@/components/workorders/WorkOrderForm'
+import { ClipboardList, Clock, Wrench, CheckCircle, RefreshCw, Plus } from 'lucide-react'
 import Swal from 'sweetalert2'
 
 export default function AdminPanel() {
   const { workOrders, isLoading, error, fetchWorkOrders, updateWorkOrderStatus } = useWorkOrderStore()
   const { equipment, fetchEquipment } = useEquipmentStore()
+  const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
     fetchWorkOrders()
@@ -56,13 +58,22 @@ export default function AdminPanel() {
           <h1 className="text-white text-2xl font-bold">Panel Administrador</h1>
           <p className="text-gray-400 text-sm">Gestion de Ordenes de Trabajo</p>
         </div>
-        <button
-          onClick={fetchWorkOrders}
-          className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
-        >
-          <RefreshCw size={16} />
-          Actualizar
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowForm(true)}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            <Plus size={16} />
+            Nueva OT
+          </button>
+          <button
+            onClick={fetchWorkOrders}
+            className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            <RefreshCw size={16} />
+            Actualizar
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -112,6 +123,10 @@ export default function AdminPanel() {
           />
         )}
       </div>
+
+      {showForm && (
+        <WorkOrderForm onClose={() => setShowForm(false)} />
+      )}
     </div>
   )
 }

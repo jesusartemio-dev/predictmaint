@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useEquipmentStore } from '@/store/useEquipmentStore'
 import { useWorkOrderStore } from '@/store/useWorkOrderStore'
 import EquipmentCard from '@/components/equipment/EquipmentCard'
-import WorkOrderForm from '@/components/workorders/WorkOrderForm'
 import WorkOrderTable from '@/components/workorders/WorkOrderTable'
-import { Activity, CheckCircle, AlertTriangle, XCircle, Wrench, RefreshCw, Plus, ClipboardList } from 'lucide-react'
+import { Activity, CheckCircle, AlertTriangle, XCircle, RefreshCw, ClipboardList } from 'lucide-react'
 
 export default function Dashboard() {
   const { user } = useAuthStore()
   const { equipment, isLoading, error, fetchEquipment, setSelectedEquipment } = useEquipmentStore()
   const { workOrders, fetchWorkOrders } = useWorkOrderStore()
-  const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
     fetchEquipment()
@@ -35,22 +33,13 @@ export default function Dashboard() {
           <h1 className="text-white text-2xl font-bold">Dashboard Tecnico</h1>
           <p className="text-gray-400 text-sm">Bienvenido, {user?.name}</p>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-          >
-            <Plus size={16} />
-            Nueva OT
-          </button>
-          <button
-            onClick={fetchEquipment}
-            className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
-          >
-            <RefreshCw size={16} />
-            Actualizar
-          </button>
-        </div>
+        <button
+          onClick={fetchEquipment}
+          className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+        >
+          <RefreshCw size={16} />
+          Actualizar
+        </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -121,9 +110,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {showForm && (
-        <WorkOrderForm onClose={() => setShowForm(false)} />
-      )}
     </div>
   )
 }

@@ -1,19 +1,15 @@
 import { useEffect } from 'react'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useEquipmentStore } from '@/store/useEquipmentStore'
-import { useWorkOrderStore } from '@/store/useWorkOrderStore'
 import EquipmentCard from '@/components/equipment/EquipmentCard'
-import WorkOrderTable from '@/components/workorders/WorkOrderTable'
-import { Activity, CheckCircle, AlertTriangle, XCircle, RefreshCw, ClipboardList } from 'lucide-react'
+import { Activity, CheckCircle, AlertTriangle, XCircle, RefreshCw } from 'lucide-react'
 
 export default function Dashboard() {
   const { user } = useAuthStore()
   const { equipment, isLoading, error, fetchEquipment, setSelectedEquipment } = useEquipmentStore()
-  const { workOrders, fetchWorkOrders } = useWorkOrderStore()
 
   useEffect(() => {
     fetchEquipment()
-    fetchWorkOrders()
   }, [])
 
   const total = equipment.length
@@ -91,25 +87,6 @@ export default function Dashboard() {
           ))}
         </div>
       )}
-
-      <div className="mt-8">
-        <div className="flex items-center gap-2 mb-4">
-          <ClipboardList className="text-blue-400" size={22} />
-          <h2 className="text-white text-xl font-semibold">
-            Mis Órdenes de Trabajo
-          </h2>
-          <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full ml-2">
-            {workOrders.length}
-          </span>
-        </div>
-        <div className="bg-gray-800 rounded-xl p-4">
-          <WorkOrderTable
-            workOrders={workOrders}
-            showActions={false}
-          />
-        </div>
-      </div>
-
     </div>
   )
 }

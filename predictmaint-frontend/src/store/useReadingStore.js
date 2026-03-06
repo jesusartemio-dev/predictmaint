@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 const API = `${import.meta.env.VITE_API_URL || 'https://predictmaint-production.up.railway.app'}/api`
 
+// Gestiona lecturas de sensores por equipo, usado en el modal de detalle
 export const useReadingStore = create((set) => ({
   readings: [],
   isLoading: false,

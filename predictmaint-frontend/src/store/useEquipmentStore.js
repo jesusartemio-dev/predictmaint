@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 const API = `${import.meta.env.VITE_API_URL || 'https://predictmaint-production.up.railway.app'}/api`
 
+// Sin persist: los equipos se refrescan del servidor en cada visita al Dashboard
 export const useEquipmentStore = create((set) => ({
   equipment: [],
   selectedEquipment: null,
@@ -34,6 +35,7 @@ export const useEquipmentStore = create((set) => ({
     }
   },
 
+  // Guarda el equipo seleccionado para abrir el modal de detalle
   setSelectedEquipment: (equip) => set({ selectedEquipment: equip }),
 
   clearError: () => set({ error: null }),

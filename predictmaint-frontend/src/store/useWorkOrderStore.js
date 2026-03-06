@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 const API = `${import.meta.env.VITE_API_URL || 'https://predictmaint-production.up.railway.app'}/api`
 
+// Gestiona ordenes de trabajo: CRUD y cambios de estado desde el AdminPanel
 export const useWorkOrderStore = create((set, get) => ({
   workOrders: [],
   isLoading: false,

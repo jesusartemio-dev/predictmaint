@@ -27,7 +27,8 @@ public class AuthController {
                     authService.login(request.getUsername(), request.getPassword());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(java.util.Map.of("error", e.getMessage()));
         }
     }
 }

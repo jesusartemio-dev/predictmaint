@@ -76,10 +76,10 @@ INSERT INTO work_orders (equipment_id, order_type, priority, status, description
 SELECT 4, 'PREVENTIVO', 'MEDIA', 'COMPLETADA', 'Cambio de filtros y aceite COM-001', 'Luis Paredes', '2025-02-15 09:00:00', '2025-02-15 14:00:00'
 WHERE NOT EXISTS (SELECT 1 FROM work_orders LIMIT 1);
 
--- USUARIOS DEL SISTEMA
+-- USUARIOS DEL SISTEMA (password: 1234)
 INSERT INTO users (username, password, name, role, area) VALUES
-('admin', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Carlos Mendoza', 'ADMIN', 'Gerencia') ON CONFLICT (username) DO NOTHING;
+('admin', '$2a$10$Cdt7Scme87y6XDEpxuBmLOzYT3OeRpB5wpY/ugMdLAGot7JY49H36', 'Carlos Mendoza', 'ADMIN', 'Gerencia') ON CONFLICT (username) DO UPDATE SET password = EXCLUDED.password;
 INSERT INTO users (username, password, name, role, area) VALUES
-('tecnico1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Luis Paredes', 'TECNICO', 'Linea A') ON CONFLICT (username) DO NOTHING;
+('tecnico1', '$2a$10$Cdt7Scme87y6XDEpxuBmLOzYT3OeRpB5wpY/ugMdLAGot7JY49H36', 'Luis Paredes', 'TECNICO', 'Linea A') ON CONFLICT (username) DO UPDATE SET password = EXCLUDED.password;
 INSERT INTO users (username, password, name, role, area) VALUES
-('tecnico2', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Roberto Silva', 'TECNICO', 'Linea B') ON CONFLICT (username) DO NOTHING;
+('tecnico2', '$2a$10$Cdt7Scme87y6XDEpxuBmLOzYT3OeRpB5wpY/ugMdLAGot7JY49H36', 'Roberto Silva', 'TECNICO', 'Linea B') ON CONFLICT (username) DO UPDATE SET password = EXCLUDED.password;

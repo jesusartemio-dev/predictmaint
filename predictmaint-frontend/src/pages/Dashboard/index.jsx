@@ -1,12 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useEquipmentStore } from '@/store/useEquipmentStore'
 import EquipmentCard from '@/components/equipment/EquipmentCard'
+import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal'
 import { Activity, CheckCircle, AlertTriangle, XCircle, RefreshCw } from 'lucide-react'
 
 export default function Dashboard() {
   const { user } = useAuthStore()
-  const { equipment, isLoading, error, fetchEquipment, setSelectedEquipment } = useEquipmentStore()
+  const { equipment, isLoading, error, fetchEquipment } = useEquipmentStore()
+  const [selectedEquipment, setSelectedEquipment] = useState(null)
 
   useEffect(() => {
     fetchEquipment()
@@ -16,11 +18,6 @@ export default function Dashboard() {
   const operativos = equipment.filter(e => e.status === 'OPERATIVO').length
   const alertas = equipment.filter(e => e.status === 'ALERTA').length
   const fallas = equipment.filter(e => e.status === 'FALLA').length
-
-  const handleCardClick = (equip) => {
-    setSelectedEquipment(equip)
-    console.log(equip)
-  }
 
   return (
     <div className="min-h-screen bg-gray-900 px-4 py-4">
@@ -90,10 +87,17 @@ export default function Dashboard() {
             <EquipmentCard
               key={equip.id}
               equipment={equip}
-              onClick={handleCardClick}
+              onClick={setSelectedEquipment}
             />
           ))}
         </div>
+      )}
+
+      {selectedEquipment && (
+        <EquipmentDetailModal
+          equipment={selectedEquipment}
+          onClose={() => setSelectedEquipment(null)}
+        />
       )}
     </div>
   )

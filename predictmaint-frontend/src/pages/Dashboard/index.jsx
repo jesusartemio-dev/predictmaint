@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useEquipmentStore } from '@/store/useEquipmentStore'
+import KpiCard from '@/components/dashboard/KpiCard'
 import EquipmentCard from '@/components/equipment/EquipmentCard'
 import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal'
 import { Activity, CheckCircle, AlertTriangle, XCircle, RefreshCw } from 'lucide-react'
@@ -36,34 +37,10 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-3 border-l-4 border-l-blue-500">
-          <div className="flex items-center gap-2 mb-1">
-            <Activity className="text-blue-400" size={16} />
-            <p className="text-gray-400 text-xs">Total Equipos</p>
-          </div>
-          <p className="text-white text-3xl font-bold">{total}</p>
-        </div>
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-3 border-l-4 border-l-green-500">
-          <div className="flex items-center gap-2 mb-1">
-            <CheckCircle className="text-green-400" size={16} />
-            <p className="text-gray-400 text-xs">Operativos</p>
-          </div>
-          <p className="text-green-400 text-3xl font-bold">{operativos}</p>
-        </div>
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-3 border-l-4 border-l-yellow-500">
-          <div className="flex items-center gap-2 mb-1">
-            <AlertTriangle className="text-yellow-400" size={16} />
-            <p className="text-gray-400 text-xs">En Alerta</p>
-          </div>
-          <p className="text-yellow-400 text-3xl font-bold">{alertas}</p>
-        </div>
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-3 border-l-4 border-l-red-500">
-          <div className="flex items-center gap-2 mb-1">
-            <XCircle className="text-red-400" size={16} />
-            <p className="text-gray-400 text-xs">En Falla</p>
-          </div>
-          <p className="text-red-400 text-3xl font-bold">{fallas}</p>
-        </div>
+        <KpiCard icon={Activity} label="Total Equipos" value={total} color="blue" />
+        <KpiCard icon={CheckCircle} label="Operativos" value={operativos} color="green" />
+        <KpiCard icon={AlertTriangle} label="En Alerta" value={alertas} color="yellow" />
+        <KpiCard icon={XCircle} label="En Falla" value={fallas} color="red" />
       </div>
 
       <h2 className="text-white text-sm font-semibold mb-3 uppercase tracking-wider text-gray-400">Estado de Equipos</h2>
